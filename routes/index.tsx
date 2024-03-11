@@ -1,25 +1,18 @@
-import { useSignal } from "@preact/signals";
-import Counter from "../islands/Counter.tsx";
+import { get_times } from "../utils/adhan.ts";
 
 export default function Home() {
-  const count = useSignal(3);
+  const times = get_times();
+
   return (
-    <div class="px-4 py-8 mx-auto bg-[#86efac]">
-      <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
-        <img
-          class="my-6"
-          src="/logo.svg"
-          width="128"
-          height="128"
-          alt="the Fresh logo: a sliced lemon dripping with juice"
-        />
-        <h1 class="text-4xl font-bold">Welcome to Fresh</h1>
-        <p class="my-4">
-          Try updating this message in the
-          <code class="mx-2">./routes/index.tsx</code> file, and refresh.
-        </p>
-        <Counter count={count} />
-      </div>
+    <div className="flex flex-col gap-4 justify-center items-center">
+      {Object.keys(times).map((k) => {
+        return (
+          <div className="flex justify-center items-center gap-4">
+            <h3 className="text-xl font-medium">{k.toUpperCase()}</h3>
+            <p className="text-3xl font-bold">{times[k].formatedTime}</p>
+          </div>
+        );
+      })}
     </div>
   );
 }
